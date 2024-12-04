@@ -9,8 +9,7 @@ import { updateProfile } from "firebase/auth";
 
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext);
-    const [errorMessage, setErrorMessage] = useState()
+    const { createUser, errorMessage, setErrorMessage } = useContext(AuthContext);
     const navigate = useNavigate();
     const [showPass, SetShowPass] = useState(false)
 
@@ -23,7 +22,6 @@ const Register = () => {
         const photo = form.photo.value;
         const password = form.password.value;
         const user = { name, email, photo, password }
-        console.log(user);
 
         setErrorMessage("");
 
@@ -36,12 +34,13 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                return updateProfile(user,{
-                    displayName:name,
-                    photoURL:photo
+                return updateProfile(user, {
+                    displayName: name,
+                    photoURL: photo
                 })
             })
             .then(() => {
+                form.reset()
                 navigate("/");
             })
             .catch(error => {
@@ -111,13 +110,13 @@ const Register = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaLock className="text-gray-400 mr-2" />
                                 <input
-                                    type={showPass? "text":"password"}
+                                    type={showPass ? "text" : "password"}
                                     id="password"
                                     name="password"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter your password"
                                 />
-                                <button type="button" onClick={()=>SetShowPass(!showPass)}>
+                                <button type="button" onClick={() => SetShowPass(!showPass)}>
                                     {
                                         showPass ? <FaEyeSlash /> : <FaEye />
                                     }

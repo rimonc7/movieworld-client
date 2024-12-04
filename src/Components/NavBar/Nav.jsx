@@ -20,7 +20,7 @@ const Nav = () => {
     }
 
 
-    const links = <div className="space-x-3 ">
+    const links = <div className=" space-y-3 space-x-3 ">
         <NavLink to="/" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Home</NavLink>
         <NavLink to="/allMovies" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">All Movies</NavLink>
         {user ?
@@ -38,8 +38,8 @@ const Nav = () => {
     </div>
 
     return (
-        <div className="w-11/12 mx-auto">
-            <div className="navbar bg-base-100">
+        <div className=" px-4 lg:px-20 ">
+            <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
