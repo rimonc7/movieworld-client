@@ -1,9 +1,12 @@
 import Footer from "../Footer/Footer";
 import Nav from "../NavBar/Nav";
 import { FaFilm, FaImage, FaTags, FaClock, FaCalendarAlt, FaStar, FaInfoCircle } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const AddMovie = () => {
+
     const handleAddMovie = e => {
         e.preventDefault();
         const form = e.target;
@@ -15,8 +18,6 @@ const AddMovie = () => {
         const rating = parseFloat(form.rating.value);
         const summary = form.summary.value;
         const newMovie = { poster, title, genre, duration, releaseYear, rating, summary }
-        console.log(newMovie)
-
         fetch('http://localhost:5000/movies', {
             method: 'POST',
             headers: {
@@ -26,9 +27,9 @@ const AddMovie = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                form.reset()
+                toast.success('Movie added successfully!')
             })
-
     }
 
 
@@ -158,6 +159,18 @@ const AddMovie = () => {
                 </div>
             </div>
             <Footer></Footer>
+            <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={true}
+                pauseOnHover={true}
+                theme="colored"
+            />
         </div>
     );
 };
