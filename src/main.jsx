@@ -15,6 +15,7 @@ import MyFavorites from './Components/Pages/MyFavorites';
 import PrivateRoutes from './PrivateRoutes';
 import Root from './LayOut/HomeLayOut/Root';
 import NotFound from './Components/Pages/NotFound';
+import MovieDetails from './Components/Pages/MovieDetails';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
   {
     path: "/myFavorites",
     element: <PrivateRoutes><MyFavorites></MyFavorites></PrivateRoutes>
+  },
+  {
+    path: "/movies/:id",
+    element: <PrivateRoutes><MovieDetails></MovieDetails></PrivateRoutes>,
+    loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`)
   }
 
 
