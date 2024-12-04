@@ -13,11 +13,20 @@ import AuthLayOut from './LayOut/AuthLayOut/AuthLayOut';
 import AddMovie from './Components/Pages/AddMovie';
 import MyFavorites from './Components/Pages/MyFavorites';
 import PrivateRoutes from './PrivateRoutes';
+import Root from './LayOut/HomeLayOut/Root';
+import NotFound from './Components/Pages/NotFound';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: <Root></Root>,
+    errorElement:<NotFound></NotFound>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      }
+    ]
   },
   {
     path: "/auth",
