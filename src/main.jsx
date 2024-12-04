@@ -6,16 +6,24 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from './LayOut/HomeLayOut/Home';
+import AuthProvider from './Provider/AuthProvider';
+import Register from './Components/Auth/Register';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
   },
+  {
+    path:"/register",
+    element: <Register></Register>
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
