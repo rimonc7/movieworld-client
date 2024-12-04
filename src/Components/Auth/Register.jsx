@@ -1,12 +1,19 @@
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Nav from "../NavBar/Nav";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { updateProfile } from "firebase/auth";
+
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
-    const [errorMessage,setErrorMessage]= useState()
+    const [errorMessage, setErrorMessage] = useState()
+    const navigate = useNavigate();
+    const [showPass, SetShowPass] = useState(false)
+
 
     const handleRegister = e => {
         e.preventDefault();
@@ -17,9 +24,25 @@ const Register = () => {
         const password = form.password.value;
         const user = { name, email, photo, password }
         console.log(user);
+
+        setErrorMessage("");
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+        if (!passwordRegex.test(password)) {
+            setErrorMessage("Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, and one special character.");
+            return;
+        }
         createUser(email, password)
             .then(result => {
                 const user = result.user;
+                return updateProfile(user,{
+                    displayName:name,
+                    photoURL:photo
+                })
+            })
+            .then(() => {
+                navigate("/");
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -88,12 +111,17 @@ const Register = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaLock className="text-gray-400 mr-2" />
                                 <input
-                                    type="password"
+                                    type={showPass? "text":"password"}
                                     id="password"
                                     name="password"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter your password"
                                 />
+                                <button type="button" onClick={()=>SetShowPass(!showPass)}>
+                                    {
+                                        showPass ? <FaEyeSlash /> : <FaEye />
+                                    }
+                                </button>
                             </div>
                         </div>
 

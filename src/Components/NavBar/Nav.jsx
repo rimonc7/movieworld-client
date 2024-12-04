@@ -1,13 +1,40 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { FaUserCircle } from "react-icons/fa";
+
 
 const Nav = () => {
+
+    const { user, signOutUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }
+
+
     const links = <div className="space-x-3 ">
         <NavLink to="/" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Home</NavLink>
         <NavLink to="/allMovies" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">All Movies</NavLink>
-        <NavLink to="/addMovie" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Add Movie</NavLink>
-        <NavLink to="/myFavorites" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">My Favorites</NavLink>
-        <NavLink to="/login" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Login</NavLink>
-        <NavLink to="/register" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Register</NavLink>
+        {user ?
+            <>
+                <NavLink to="/addMovie" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Add Movie</NavLink>
+                <NavLink to="/myFavorites" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">My Favorites</NavLink>
+                <NavLink onClick={handleSignOut} to="/logout" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Logout</NavLink>
+            </>
+            :
+            <>
+                <NavLink to="/login" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Login</NavLink>
+                <NavLink to="/register" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Register</NavLink>
+            </>}
+
     </div>
 
     return (
@@ -43,8 +70,17 @@ const Nav = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
-                </div>
+                {user ? (
+                    <img
+                        className="w-12 h-12 rounded-full"
+                        src={user?.photoURL}
+                        alt=""
+                        title={user?.displayName || "User"}
+                    />
+                ) : (
+                    <p className="text-5xl"><FaUserCircle /></p>
+                )}
+            </div>
             </div>
         </div>
     );
