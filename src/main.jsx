@@ -9,6 +9,10 @@ import Home from './LayOut/HomeLayOut/Home';
 import AuthProvider from './Provider/AuthProvider';
 import Register from './Components/Auth/Register';
 import Login from './Components/Auth/Login';
+import AuthLayOut from './LayOut/AuthLayOut/AuthLayOut';
+import AddMovie from './Components/Pages/AddMovie';
+import MyFavorites from './Components/Pages/MyFavorites';
+import PrivateRoutes from './PrivateRoutes';
 
 const router = createBrowserRouter([
   {
@@ -16,13 +20,29 @@ const router = createBrowserRouter([
     element: <Home></Home>,
   },
   {
-    path:"/register",
-    element: <Register></Register>
+    path: "/auth",
+    element: <AuthLayOut></AuthLayOut>,
+    children: [
+      {
+        path: "register",
+        element: <Register></Register>
+      },
+      {
+        path: "login",
+        element: <Login></Login>
+      }
+    ]
   },
   {
-    path:"/login",
-    element:<Login></Login>
+    path: "/addMovie",
+    element: <PrivateRoutes><AddMovie></AddMovie></PrivateRoutes>
+  },
+  {
+    path: "/myFavorites",
+    element: <PrivateRoutes><MyFavorites></MyFavorites></PrivateRoutes>
   }
+
+
 ]);
 
 createRoot(document.getElementById('root')).render(

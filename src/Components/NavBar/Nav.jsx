@@ -31,8 +31,8 @@ const Nav = () => {
             </>
             :
             <>
-                <NavLink to="/login" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Login</NavLink>
-                <NavLink to="/register" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Register</NavLink>
+                <NavLink to="/auth/login" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Login</NavLink>
+                <NavLink to="/auth/register" className="btn bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded">Register</NavLink>
             </>}
 
     </div>
