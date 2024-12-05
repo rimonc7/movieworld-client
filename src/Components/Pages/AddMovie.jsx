@@ -67,6 +67,8 @@ const AddMovie = () => {
                                     name="title"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter movie title"
+                                    minLength="2"
+                                    required
                                 />
                             </div>
                         </div>
@@ -78,11 +80,20 @@ const AddMovie = () => {
                                 <FaTags className="text-gray-400 mr-2" />
                                 <input
                                     type="text"
-                                    id="genre"
+                                    id=""
                                     name="genre"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter movie genres (comma-separated)"
+                                    list="genre-options"
                                 />
+                                <datalist id="genre-options">
+                                    <option value="Action" />
+                                    <option value="Comedy" />
+                                    <option value="Drama" />
+                                    <option value="Horror" />
+                                    <option value="Romance" />
+                                    <option value="Sci-Fi" />
+                                </datalist>
                             </div>
                         </div>
                         <div>
@@ -93,10 +104,12 @@ const AddMovie = () => {
                                 <FaClock className="text-gray-400 mr-2" />
                                 <input
                                     type="number"
-                                    id="duration"
+                                    id=""
                                     name="duration"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter movie duration"
+                                    min="60"
+                                    required
                                 />
                             </div>
                         </div>
@@ -107,12 +120,22 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaCalendarAlt className="text-gray-400 mr-2" />
                                 <input
-                                    type="number"
+                                    type="text"
                                     id="releaseYear"
                                     name="releaseYear"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter release year"
+                                    required
+                                    list="year-options"
                                 />
+                                <datalist id="year-options">
+                                    <option value="2024" />
+                                    <option value="2023" />
+                                    <option value="2022" />
+                                    <option value="2021" />
+                                    <option value="2020" />
+                                    <option value="2019" />
+                                </datalist>
                             </div>
                         </div>
                         <div>
@@ -130,6 +153,7 @@ const AddMovie = () => {
                                     step="0.1"
                                     min="1"
                                     max="10"
+                                    required
                                 />
                             </div>
                         </div>
@@ -145,10 +169,11 @@ const AddMovie = () => {
                                     className="w-full bg-gray-50 outline-none resize-none"
                                     placeholder="Enter a brief summary"
                                     rows="4"
+                                    minlength="10"
+                                    required
                                 ></textarea>
                             </div>
                         </div>
-
                         <button
                             type="submit"
                             className="w-full bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition"
