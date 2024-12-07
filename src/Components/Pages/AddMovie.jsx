@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import Footer from "../Footer/Footer";
 import Nav from "../NavBar/Nav";
 import { FaFilm, FaImage, FaTags, FaClock, FaCalendarAlt, FaStar, FaInfoCircle } from "react-icons/fa";
@@ -35,6 +36,9 @@ const AddMovie = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>AddMovie</title>
+            </Helmet>
             <Nav></Nav>
             <div className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
                 <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">

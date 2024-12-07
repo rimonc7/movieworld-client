@@ -5,10 +5,11 @@ import { FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
     const [showPass, SetShowPass] = useState(false);
-    const { loginUser,signinWithGmail, errorMessage, setErrorMessage } = useContext(AuthContext);
+    const { loginUser, signinWithGmail, errorMessage, setErrorMessage } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogin = e => {
@@ -41,6 +42,9 @@ const Login = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
             <div className="min-h-screen flex items-center justify-center bg-gray-100">
                 <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
                     <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>

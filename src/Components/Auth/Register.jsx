@@ -6,6 +6,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { updateProfile } from "firebase/auth";
+import { Helmet } from "react-helmet";
 
 
 const Register = () => {
@@ -51,6 +52,9 @@ const Register = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Register</title>
+            </Helmet>
             <div className="min-h-screen flex items-center justify-center bg-gray-100">
                 <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
                     <h2 className="text-2xl font-bold text-center text-gray-800">Register</h2>
