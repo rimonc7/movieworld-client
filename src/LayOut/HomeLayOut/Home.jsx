@@ -1,9 +1,8 @@
-
 import Marquee from "react-fast-marquee";
 import Banner from "./Banner";
 import FeaturedMovies from "./FeaturedMovies";
 import { Link } from "react-router-dom";
-
+import Subscribe from "./Subscribe";
 
 const Home = () => {
     const upComingMovies = [
@@ -17,12 +16,11 @@ const Home = () => {
         { "title": "Captain America: Brave New World", "release_date": "February 14, 2025" },
         { "title": "Moana 2", "release_date": "November 27, 2024" },
         { "title": "Gladiator 2", "release_date": "November 22, 2024" }
-    ]
-
+    ];
 
     return (
         <div>
-            <Banner></Banner>
+            <Banner />
             <section className="py-8 bg-gray-800">
                 <h1 className="text-center text-4xl font-extrabold mb-9 uppercase text-white tracking-wide">
                     Upcoming Movies
@@ -36,7 +34,12 @@ const Home = () => {
                             <h2 className="text-xl font-semibold text-white">{movie.title}</h2>
                             <p className="text-sm text-gray-400">{movie.release_date}</p>
                             <div className="flex justify-center">
-                                <Link to={`https://www.youtube.com/results?search_query=${movie.title}`} target="blank" className=" bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition-colors">
+                                <Link
+                                    to={`https://www.youtube.com/results?search_query=${movie.title}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition-colors"
+                                >
                                     Watch Trailer
                                 </Link>
                             </div>
@@ -44,8 +47,8 @@ const Home = () => {
                     ))}
                 </Marquee>
             </section>
-
-            <FeaturedMovies></FeaturedMovies>
+            <FeaturedMovies />
+            <Subscribe></Subscribe>
         </div>
     );
 };
