@@ -55,7 +55,8 @@ const AuthProvider = ({ children }) => {
         user,
         errorMessage,
         setErrorMessage,
-        loader
+        loader,
+        setLoader
     }
 
 

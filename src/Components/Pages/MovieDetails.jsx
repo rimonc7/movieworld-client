@@ -2,11 +2,47 @@ import { Link, useLoaderData } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Nav from "../NavBar/Nav";
 import { FaStar, FaClock, FaCalendarAlt, FaFilm } from 'react-icons/fa';
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const MovieDetails = () => {
     const movie = useLoaderData();
-    const { _id, poster, title, rating, genre, duration, releaseYear, summary } = movie;
+    const { user } = useContext(AuthContext);
+    const { poster, title, rating, genre, duration, releaseYear, summary } = movie;
+
+    const handleFavorite = () => {
+        const email = user.email;
+        const favMovie = { email, movie };
+
+        fetch("http://localhost:5000/favoriteMovies", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(favMovie),
+        })
+            .then((res) => {
+                if (res.status === 409) {
+                    toast.error('You have already added this movie as favorite');
+                    return null; 
+                }
+                return res.json();
+            })
+            .then((data) => {
+                if (data) {
+                    toast.success('Movie added as Favorite');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                toast.error('Failed to add favorite movie. Please try again.');
+            });
+    };
+
+
     return (
         <div>
             <Nav></Nav>
@@ -47,13 +83,23 @@ const MovieDetails = () => {
                         <p className="text-gray-700 leading-relaxed mb-6">
                             {summary}
                         </p>
-                        <Link to="https://www.youtube.com/" target="_blank">
-                            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg transition">
-                                Watch Trailer
-                            </button>
-                        </Link>
+                        <button onClick={handleFavorite} className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg transition">
+                            Add to Favorite
+                        </button>
                     </div>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={true}
+                    closeOnClick={true}
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable={true}
+                    pauseOnHover={true}
+                    theme="colored"
+                />
             </div>
             <Footer></Footer>
         </div>

@@ -18,6 +18,7 @@ import NotFound from './Components/Pages/NotFound';
 import MovieDetails from './Components/Pages/MovieDetails';
 import AllMovies from './Components/Pages/AllMovies';
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   {
     path: "/myFavorites",
     element: <PrivateRoutes><MyFavorites></MyFavorites></PrivateRoutes>
-  },
+    },
   {
     path: "/movies/:id",
     element: <PrivateRoutes><MovieDetails></MovieDetails></PrivateRoutes>,
