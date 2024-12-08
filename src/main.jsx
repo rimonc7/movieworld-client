@@ -57,17 +57,17 @@ const router = createBrowserRouter([
   {
     path: "/movies/:id",
     element: <PrivateRoutes><MovieDetails></MovieDetails></PrivateRoutes>,
-    loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`)
+    loader:({params})=>fetch(`https://movieworld-server.vercel.app/movies/${params.id}`)
   },
   {
     path:"/allMovies",
     element:<AllMovies></AllMovies>,
-    loader:()=>fetch("http://localhost:5000/movies/")
+    loader:()=>fetch("https://movieworld-server.vercel.app/movies/")
   },
   {
     path:"/updateMovie/:id",
     element: <PrivateRoutes><UpdateMovie></UpdateMovie></PrivateRoutes>,
-    loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`)
+    loader:({params})=>fetch(`https://movieworld-server.vercel.app/movies/${params.id}`)
   }
 
 

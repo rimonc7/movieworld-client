@@ -7,7 +7,7 @@ const Subscribe = () => {
         const form= e.target;
         const subscriber = form.email.value;
         const newSub= {subscriber}
-        fetch('http://localhost:5000/subscribers',{
+        fetch('https://movieworld-server.vercel.app/subscribers',{
             method:"POST",
             headers:{
                 'content-type':'application/json'

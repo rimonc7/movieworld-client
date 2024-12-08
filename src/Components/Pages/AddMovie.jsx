@@ -19,7 +19,7 @@ const AddMovie = () => {
         const rating = parseFloat(form.rating.value);
         const summary = form.summary.value;
         const newMovie = { poster, title, genre, duration, releaseYear, rating, summary }
-        fetch('http://localhost:5000/movies', {
+        fetch('https://movieworld-server.vercel.app/movies', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

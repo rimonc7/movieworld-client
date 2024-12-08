@@ -5,7 +5,7 @@ const FeaturedMovies = () => {
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/movies?limit=6')
+        fetch('https://movieworld-server.vercel.app/movies?limit=6')
             .then(res => res.json())
             .then(data => {
                 setMovies(data)

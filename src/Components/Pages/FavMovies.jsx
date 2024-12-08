@@ -6,7 +6,7 @@ const FavMovies = ({ favMovie }) => {
     const { poster, title, rating, genre, duration, releaseYear, summary } =updateMovies;
 
     const handleDelete = _id => {
-        fetch(`http://localhost:5000/favoriteMovies/${_id}`,{
+        fetch(`https://movieworld-server.vercel.app/favoriteMovies/${_id}`,{
             method:"DELETE"
         })
         .then(res=>res.json())

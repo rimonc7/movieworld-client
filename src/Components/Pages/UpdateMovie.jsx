@@ -21,7 +21,7 @@ const UpdateMovie = () => {
         const summary = form.summary.value;
         const updatedMovie = { poster, title, genre, duration, releaseYear, rating, summary };
 
-        fetch(`http://localhost:5000/updateMovie/${movie._id}`, {
+        fetch(`https://movieworld-server.vercel.app/updateMovie/${movie._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

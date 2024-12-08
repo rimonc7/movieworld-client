@@ -17,7 +17,7 @@ const MovieDetails = () => {
         const email = user.email;
         const favMovie = { email, movie };
 
-        fetch("http://localhost:5000/favoriteMovies", {
+        fetch("https://movieworld-server.vercel.app/favoriteMovies", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
