@@ -17,13 +17,14 @@ import Root from './LayOut/HomeLayOut/Root';
 import NotFound from './Components/Pages/NotFound';
 import MovieDetails from './Components/Pages/MovieDetails';
 import AllMovies from './Components/Pages/AllMovies';
+import UpdateMovie from './Components/Pages/UpdateMovie';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    // errorElement:<NotFound></NotFound>,
+    errorElement:<NotFound></NotFound>,
     children: [
       {
         path: "/",
@@ -62,6 +63,11 @@ const router = createBrowserRouter([
     path:"/allMovies",
     element:<AllMovies></AllMovies>,
     loader:()=>fetch("http://localhost:5000/movies/")
+  },
+  {
+    path:"/updateMovie/:id",
+    element: <PrivateRoutes><UpdateMovie></UpdateMovie></PrivateRoutes>,
+    loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`)
   }
 
 

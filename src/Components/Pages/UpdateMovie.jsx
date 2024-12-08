@@ -1,14 +1,15 @@
-import { Helmet } from "react-helmet";
-import Footer from "../Footer/Footer";
-import Nav from "../NavBar/Nav";
 import { FaFilm, FaImage, FaTags, FaClock, FaCalendarAlt, FaStar, FaInfoCircle } from "react-icons/fa";
+import Nav from "../NavBar/Nav";
+import { useLoaderData } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "../Footer/Footer";
 
+const UpdateMovie = () => {
+    const movie = useLoaderData();
+    const { poster, title, rating, genre, duration, releaseYear, summary } = movie;
 
-const AddMovie = () => {
-
-    const handleAddMovie = e => {
+    const handleUpdateMovie = e => {
         e.preventDefault();
         const form = e.target;
         const poster = form.poster.value;
@@ -18,32 +19,31 @@ const AddMovie = () => {
         const releaseYear = parseInt(form.releaseYear.value);
         const rating = parseFloat(form.rating.value);
         const summary = form.summary.value;
-        const newMovie = { poster, title, genre, duration, releaseYear, rating, summary }
-        fetch('http://localhost:5000/movies', {
-            method: 'POST',
+        const updatedMovie = { poster, title, genre, duration, releaseYear, rating, summary };
+
+        fetch(`http://localhost:5000/updateMovie/${movie._id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(newMovie)
+            body: JSON.stringify(updatedMovie)
         })
             .then(res => res.json())
             .then(data => {
-                form.reset()
-                toast.success('Movie added successfully!')
+                if (data.modifiedCount) {
+                    form.reset();
+                    toast.success('Movie updated successfully!');
+                }
             })
-    }
-
+    };
 
     return (
         <div>
-            <Helmet>
-                <title>AddMovie</title>
-            </Helmet>
-            <Nav></Nav>
+            <Nav />
             <div className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
                 <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
-                    <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Add a Movie</h2>
-                    <form onSubmit={handleAddMovie} className="space-y-4">
+                    <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Update The Movie Details</h2>
+                    <form onSubmit={handleUpdateMovie} className="space-y-4">
                         <div>
                             <label className="block text-gray-600 mb-1" htmlFor="poster">
                                 Poster URL
@@ -51,6 +51,7 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaImage className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={poster}
                                     type="url"
                                     id="poster"
                                     name="poster"
@@ -66,6 +67,7 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaFilm className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={title}
                                     type="text"
                                     id="title"
                                     name="title"
@@ -83,8 +85,9 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaTags className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={genre}
                                     type="text"
-                                    id=""
+                                    id="genre"
                                     name="genre"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter movie genres (comma-separated)"
@@ -107,8 +110,9 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaClock className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={duration}
                                     type="number"
-                                    id=""
+                                    id="duration"
                                     name="duration"
                                     className="w-full bg-gray-50 outline-none"
                                     placeholder="Enter movie duration"
@@ -124,6 +128,7 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaCalendarAlt className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={releaseYear}
                                     type="text"
                                     id="releaseYear"
                                     name="releaseYear"
@@ -149,6 +154,7 @@ const AddMovie = () => {
                             <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaStar className="text-gray-400 mr-2" />
                                 <input
+                                    defaultValue={rating}
                                     type="number"
                                     id="rating"
                                     name="rating"
@@ -168,12 +174,13 @@ const AddMovie = () => {
                             <div className="flex items-start border rounded-lg px-3 py-2 bg-gray-50">
                                 <FaInfoCircle className="text-gray-400 mr-2 mt-1" />
                                 <textarea
+                                    defaultValue={summary}
                                     id="summary"
                                     name="summary"
                                     className="w-full bg-gray-50 outline-none resize-none"
                                     placeholder="Enter a brief summary"
                                     rows="4"
-                                    minlength="10"
+                                    minLength="10"
                                     required
                                 ></textarea>
                             </div>
@@ -182,26 +189,26 @@ const AddMovie = () => {
                             type="submit"
                             className="w-full bg-blue-500 text-white font-bold py-2 rounded-lg hover:bg-blue-600 transition"
                         >
-                            Add Movie
+                            Update The Movie
                         </button>
                     </form>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={1000}
+                        hideProgressBar={false}
+                        newestOnTop={true}
+                        closeOnClick={true}
+                        rtl={false}
+                        pauseOnFocusLoss={false}
+                        draggable={true}
+                        pauseOnHover={true}
+                        theme="colored"
+                    />
                 </div>
             </div>
-            <Footer></Footer>
-            <ToastContainer
-                position="top-right"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={true}
-                closeOnClick={true}
-                rtl={false}
-                pauseOnFocusLoss={false}
-                draggable={true}
-                pauseOnHover={true}
-                theme="colored"
-            />
+            <Footer />
         </div>
     );
 };
 
-export default AddMovie;
+export default UpdateMovie;

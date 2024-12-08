@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const MovieDetails = () => {
     const movie = useLoaderData();
     const { user } = useContext(AuthContext);
-    const { poster, title, rating, genre, duration, releaseYear, summary } = movie;
+    const { _id,poster, title, rating, genre, duration, releaseYear, summary } = movie;
 
     const handleFavorite = () => {
         const email = user.email;
@@ -86,6 +86,9 @@ const MovieDetails = () => {
                         <button onClick={handleFavorite} className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold text-lg transition">
                             Add to Favorite
                         </button>
+                        <Link to={`/updateMovie/${_id}`} className=" btn mt-3 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold text-lg transition">
+                            Update the Movie Details
+                        </Link>
                     </div>
                 </div>
                 <ToastContainer
